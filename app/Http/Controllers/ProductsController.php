@@ -10,8 +10,6 @@ use File;
 
 class ProductsController extends Controller
 {
-    protected $default_image = 'default.jpg';
-
     public function index(Request $request){
         if ($request->ajax()) {
             $data = Product::all();
@@ -42,12 +40,16 @@ class ProductsController extends Controller
         $main_image = $this->getImageName($request);
 
         Product::create([
+            'id' => $this->getNextId,
             'sku' => $request->sku,
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'main_image' => $main_image ?? $this->default_image
+            'main_image' => $main_image
         ]);
+
+        // id
+        // 2084129150  1362941803
 
         // update the salla product
         return redirect()->route('products.index');
@@ -72,7 +74,7 @@ class ProductsController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'main_image' => $main_image ?? $this->default_image
+            'main_image' => $main_image
         ]);
 
         // update the salla product
@@ -87,11 +89,15 @@ class ProductsController extends Controller
     }
 
     protected function getImageName($request){
-        $fileExt=$request->file('main_image')->getClientOriginalExtension();
-        $fileNewName=$request->id.'_'.time().'.'.$fileExt;
-        $path=$request->file('main_image')->storeAs('public/products',$fileNewName);
+        if($request->hasFile('main_image')){
+            $fileExt=$request->file('main_image')->getClientOriginalExtension();
+            $fileNewName=$request->id.'_'.time().'.'.$fileExt;
+            $path=$request->file('main_image')->storeAs('public/products',$fileNewName);
 
-        return $fileNewName;
+            return $fileNewName;
+        }
+
+        return 'default.jpg';
     }
 
     protected function deleteImage($id){
@@ -100,5 +106,10 @@ class ProductsController extends Controller
         if(File::exists(public_path($imageUrl))){
             File::delete(public_path($imageUrl));
         }
+    }
+
+    protected function getNextId(){
+        $product = Product::latest()->first();
+        return $product->id + 1;
     }
 }
