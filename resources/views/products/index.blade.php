@@ -3,7 +3,7 @@
 @section('title', 'Products')
 
 @section('content')
-    <div class="row pt-3">
+    <div class="row pt-5">
         <div class="col-12">
             <div class="float-right">
                 <a href="{{ route('products.index') }}" class="btn btn-primary">Pull Now</a>&nbsp;
@@ -40,12 +40,16 @@
         serverSide: true,
         ajax: "{{ route('products.index') }}",
         columns: [
-            {data: 'id', name: 'id'},
+            {data: 'id', name: 'id'}, 
             {data: 'sku', name: 'sku'},
             {data: 'name', name: 'name'},
             {data: 'price', name: 'price'},
             {data: 'description', name: 'description'},
-            {data: 'main_image', name: 'main_image'},
+            { data: 'main_image', name: 'main_image', orderable: false, searchable: false,
+                render: function( data, type, full, meta ) {
+                    return "<img src=\"/storage/products/" + data + "\" height=\"50\" width=\"50\"  class=\"rounded-circle\" />";
+                }
+            },
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

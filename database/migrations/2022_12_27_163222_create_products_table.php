@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->double('price');
             $table->string('description');
-            $table->string('main_image');
+            $table->string('main_image')->default('noImage.jpg');
             
             $table->timestamps();
         });
