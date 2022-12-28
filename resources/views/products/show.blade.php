@@ -29,8 +29,9 @@
                 <span style="font-weight:bold">Main Image : </span>
                 <span>{{ $product->main_image }}</span>
             </div><hr>
-            <div class="col-md-4 text-center justify-content-center m-auto pb-2">
-                <a href="{{ route('products.index') }}" class="btn btn-primary">Return To Products</a>
+            <div class="col-md-8 text-center justify-content-center m-auto pb-2">
+                <a href="{{ route('products.index') }}" class="btn btn-primary">Return To Products</a>&nbsp;
+                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success">Edit Product</a>
             </div>
         </div>
     </div>

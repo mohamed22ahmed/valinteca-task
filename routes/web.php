@@ -18,5 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('products', [ProductsController::class, 'index'])->name('products.index');
-Route::get('products/{id}', [ProductsController::class, 'show'])->name('products.show');
+Route::controller(ProductsController::class)->prefix('products')->name('products.')->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('{id}', 'show')->name('show');
+
+    Route::get('create/product', 'create')->name('create');
+    Route::post('store', 'store')->name('store');
+
+    Route::get('edit/{id}', 'edit')->name('edit');
+    Route::put('update/{id}', 'update')->name('update');
+    
+    Route::get('{id}/destroy', 'destroy')->name('destroy');
+});
