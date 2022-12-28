@@ -6,7 +6,7 @@
     <div class="row pt-5">
         <div class="col-12">
             <div class="float-right">
-                <a href="{{ route('products.index') }}" class="btn btn-primary">Pull Now</a>&nbsp;
+                <a href="{{ route('products.pull') }}" class="btn btn-dark">Pull Now</a>&nbsp;
                 <a href="{{ route('products.create') }}" class="btn btn-success">Create Product</a>
             </div>
         </div>

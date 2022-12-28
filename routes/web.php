@@ -29,4 +29,6 @@ Route::controller(ProductsController::class)->prefix('products')->name('products
     Route::put('update/{id}', 'update')->name('update');
     
     Route::get('{id}/destroy', 'destroy')->name('destroy');
+
+    Route::get('pull/products', 'pullNow')->name('pull');
 });

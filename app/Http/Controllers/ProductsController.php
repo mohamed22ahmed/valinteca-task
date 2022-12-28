@@ -88,6 +88,10 @@ class ProductsController extends Controller
         return redirect()->route('products.index');
     }
 
+    public function pullNow(){
+        // new event(new GetProductsEvent);
+    }
+
     protected function getImageName($request){
         if($request->hasFile('main_image')){
             $fileExt=$request->file('main_image')->getClientOriginalExtension();

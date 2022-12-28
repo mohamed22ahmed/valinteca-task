@@ -2,6 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\CreateProductEvent;
+use App\Events\GetProductsEvent;
+use App\Events\UpdateProductEvent;
+use App\Listeners\CreateProductInDBListener;
+use App\Listeners\CreateProductInSallaApiListener;
+use App\Listeners\GetProductsFromSallaAPiListener;
+use App\Listeners\SyncProductsWithLocalDBListener;
+use App\Listeners\UpdateProductInDBListener;
+use App\Listeners\UpdateProductInSallaApiListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +27,21 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        GetProductsEvent::class => [
+            GetProductsFromSallaAPiListener::class,
+            SyncProductsWithLocalDBListener::class
+        ],
+
+        CreateProductEvent::class => [
+            CreateProductInDBListener::class,
+            CreateProductInSallaApiListener::class
+        ],
+
+        UpdateProductEvent::class => [
+            UpdateProductInDBListener::class,
+            UpdateProductInSallaApiListener::class
+        ]
     ];
 
     /**
