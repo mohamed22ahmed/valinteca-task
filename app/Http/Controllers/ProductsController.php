@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GetProductsEvent;
 use App\Http\Requests\CreateUpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use DataTables;
 use File;
+use Illuminate\Support\Facades\Event;
 
 class ProductsController extends Controller
 {
@@ -89,7 +91,8 @@ class ProductsController extends Controller
     }
 
     public function pullNow(){
-        // new event(new GetProductsEvent);
+        event(new GetProductsEvent);
+        return \redirect()->route('products.index');
     }
 
     protected function getImageName($request){

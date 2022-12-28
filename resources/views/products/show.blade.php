@@ -27,7 +27,13 @@
             </div>
             <div class="pb-3">
                 <span style="font-weight:bold">Main Image : </span>
-                <img src="{{ asset('storage/products/'.$product->main_image) }}" width="120px" height="120px" class="rounded-circle">
+                @php
+                    if (substr($product->main_image,0,5) == 'https')
+                        $url = $product->main_image;
+                    else
+                        $url = asset('storage/products/'.$product->main_image);
+                @endphp
+                <img src="{{ $url }}" width="120px" height="120px" class="rounded-circle">
             </div><hr>
             <div class="col-md-8 text-center justify-content-center m-auto pb-2">
                 <a href="{{ route('products.index') }}" class="btn btn-primary">Return To Products</a>&nbsp;

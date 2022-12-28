@@ -44,10 +44,21 @@
             {data: 'sku', name: 'sku'},
             {data: 'name', name: 'name'},
             {data: 'price', name: 'price'},
-            {data: 'description', name: 'description'},
-            { data: 'main_image', name: 'main_image', orderable: false, searchable: false,
+            {data: 'description', name: 'description', 
+                render: function(data){
+                    if(data.length > 20)
+                        return data.substring(0,20)+'...'
+                    else
+                        return data
+
+                }
+            },
+            {data: 'main_image', name: 'main_image', orderable: false, searchable: false,
                 render: function( data, type, full, meta ) {
-                    return "<img src=\"/storage/products/" + data + "\" height=\"50\" width=\"50\"  class=\"rounded-circle\" />";
+                    if(data.substring(0,5) == 'https')
+                        return "<img src=\"" + data + "\" height=\"50\" width=\"50\"  class=\"rounded-circle\" />";
+                    else
+                        return "<img src=\"/storage/products/" + data + "\" height=\"50\" width=\"50\"  class=\"rounded-circle\" />";
                 }
             },
             {data: 'action', name: 'action', orderable: false, searchable: false},

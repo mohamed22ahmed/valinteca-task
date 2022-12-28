@@ -8,7 +8,6 @@ use App\Events\UpdateProductEvent;
 use App\Listeners\CreateProductInDBListener;
 use App\Listeners\CreateProductInSallaApiListener;
 use App\Listeners\GetProductsFromSallaAPiListener;
-use App\Listeners\SyncProductsWithLocalDBListener;
 use App\Listeners\UpdateProductInDBListener;
 use App\Listeners\UpdateProductInSallaApiListener;
 use Illuminate\Auth\Events\Registered;
@@ -30,7 +29,6 @@ class EventServiceProvider extends ServiceProvider
 
         GetProductsEvent::class => [
             GetProductsFromSallaAPiListener::class,
-            SyncProductsWithLocalDBListener::class
         ],
 
         CreateProductEvent::class => [
