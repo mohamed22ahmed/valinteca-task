@@ -27,6 +27,8 @@ class SallaProducts extends Command
      */
     public function handle()
     {
+        // use upsert
+        
         // authenticate api
         // get Products
         // map on products to sync product in db
