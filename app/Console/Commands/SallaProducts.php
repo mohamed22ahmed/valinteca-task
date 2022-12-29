@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\GetProductsEvent;
 use Illuminate\Console\Command;
 
 class SallaProducts extends Command
@@ -27,11 +28,6 @@ class SallaProducts extends Command
      */
     public function handle()
     {
-        // use upsert
-        
-        // authenticate api
-        // get Products
-        // map on products to sync product in db
-        
+        event(new GetProductsEvent);
     }
 }
