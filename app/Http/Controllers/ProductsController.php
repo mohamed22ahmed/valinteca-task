@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\GetProductsEvent;
+use App\Events\UpdateProductEvent;
 use App\Http\Requests\CreateUpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -65,21 +66,14 @@ class ProductsController extends Controller
     public function update(CreateUpdateProductRequest $request, $id){
         if($request->hasFile('main_image')){
             $this->deleteImage($id);
-            $main_image = $this->getImageName($request);
+            $request['new_image'] = $this->getImageName($request);
         }else{
             $product = Product::find($id);
-            $main_image = $product->main_image;
+            $request['new_image'] = $product->main_image;
         }
+        $request['id'] = $id;
 
-        Product::find($id)->update([
-            'sku' => $request->sku,
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'main_image' => $main_image
-        ]);
-
-        // update the salla product
+        event(new UpdateProductEvent($request->all()));
 
         return redirect()->route('products.index');
     }
