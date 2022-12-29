@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateProductEvent;
 use App\Events\GetProductsEvent;
 use App\Events\UpdateProductEvent;
 use App\Http\Requests\CreateUpdateProductRequest;
@@ -40,21 +41,9 @@ class ProductsController extends Controller
     }
 
     public function store(CreateUpdateProductRequest $request){
-        $main_image = $this->getImageName($request);
+        $request['new_image'] = $this->getImageName($request);
+        event(new CreateProductEvent($request->all()));
 
-        Product::create([
-            'id' => $this->getNextId,
-            'sku' => $request->sku,
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'main_image' => $main_image
-        ]);
-
-        // id
-        // 2084129150  1362941803
-
-        // update the salla product
         return redirect()->route('products.index');
     }
 

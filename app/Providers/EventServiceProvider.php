@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Events\CreateProductEvent;
 use App\Events\GetProductsEvent;
 use App\Events\UpdateProductEvent;
-use App\Listeners\CreateProductInDBListener;
 use App\Listeners\CreateProductInSallaApiListener;
 use App\Listeners\GetProductsFromSallaAPiListener;
 use App\Listeners\UpdateProductInDBListener;
@@ -32,7 +31,6 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         CreateProductEvent::class => [
-            CreateProductInDBListener::class,
             CreateProductInSallaApiListener::class
         ],
 
