@@ -3,16 +3,16 @@
 @section('title', 'Products')
 
 @section('content')
-    <div class="row pt-5">
+    <div class="row pt-5 pb-5">
         <div class="col-12">
             <div class="float-right">
                 <a href="{{ route('products.pull') }}" class="btn btn-dark">Pull Now</a>&nbsp;
                 <a href="{{ route('products.create') }}" class="btn btn-success">Create Product</a>
             </div>
         </div>
-    </div><br><br>
+    </div>
+    @include('partials.errors')
     <div class="row">
-        
         <div class="col-12 table-responsive">
             <table class="table table-bordered products_datatable">
                 <thead>

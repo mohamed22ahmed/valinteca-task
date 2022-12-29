@@ -44,7 +44,8 @@ class ProductsController extends Controller
         $request['new_image'] = $this->getImageName($request);
         event(new CreateProductEvent($request->all()));
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->with(['success'=> 'You have created the product successfully']);
     }
 
     public function edit($id){
@@ -64,18 +65,22 @@ class ProductsController extends Controller
 
         event(new UpdateProductEvent($request->all()));
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->with(['success'=> 'You have updated the product successfully']);
     }
 
     public function destroy($id){
         $this->deleteImage($id);
         Product::find($id)->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->with(['success'=> 'You have deleted the product successfully']);
     }
 
     public function pullNow(){
         event(new GetProductsEvent);
-        return \redirect()->route('products.index');
+
+        return \redirect()->route('products.index')
+            ->with(['success'=> 'You have pulled the products successfully']);
     }
 
     protected function getImageName($request){
